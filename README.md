@@ -17,6 +17,8 @@ This app gives your the ability to write and save notes. Handy to organize thoug
 ## Deployed App
 
 [Note-Taker](https://fierce-falls-88110.herokuapp.com)
+![homepage](screenshot1.png)
+![notesPage](screenshot2.png)
 
 ## Installation
 
