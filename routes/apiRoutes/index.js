@@ -2,16 +2,23 @@ const { notes } = require("../../db/db.json");
 const { createNewNote, validateNote, deleteNote } = require("../../lib/notes");
 const router = require("express").Router();
 const fs = require("fs");
+const { nextTick } = require("process");
 
 // GET route
 router.get("/notes", (req, res) => {
-  res.json(notes);
+  let results = notes;
+  res.json(results);
 });
 
 // POST route
 router.post("/notes", (req, res) => {
   // set id based on what the next index of the array will be
-  req.body.id = notes.length.toString();
+  if (notes.length === 0) {
+    req.body.id = "0";
+  } else {
+    req.body.id = notes.length.toString();
+  }
+
   // if any data in req.body is incorrect, send 400 error back
   if (!validateNote(req.body)) {
     res
@@ -28,9 +35,10 @@ router.post("/notes", (req, res) => {
 });
 
 // Bonus delete route
-router.delete("/notes/:id", (req, res, next) => {
-  const updatedNotesList = deleteNote(req.params.id, notes);
-  res.json(updatedNotesList);
+router.delete("/notes/:id", (req, res) => {
+  let note = deleteNote(req.params.id, notes);
+
+  res.json(note);
 });
 
 module.exports = router;
