@@ -1,5 +1,5 @@
 const { notes } = require("../../db/db.json");
-const { createNewNote, validateNote } = require("../../lib/notes");
+const { createNewNote, validateNote, deleteNote } = require("../../lib/notes");
 const router = require("express").Router();
 const fs = require("fs");
 
@@ -29,26 +29,8 @@ router.post("/notes", (req, res) => {
 
 // Bonus delete route
 router.delete("/notes/:id", (req, res, next) => {
-  // set id to be deleted to a variable
-  let deleteId = req.params.id;
-  // read all notes from the db.json file
-  fs.readFile("./db/db.json", "utf8", (error, data) => {
-    if (error) throw error;
-    // parse current notes
-    const currentNotes = JSON.parse(data);
-    // remove the note with the given id property and set to new variable
-    const updatedNotes = currentNotes.filter((note) => note.id != deleteId);
-    // rewrite the notes to the db.json file
-    fs.writeFile(
-      "./db/db.json",
-      JSON.stringify(updatedNotes, null, 2),
-      (error) => {
-        if (error) throw error;
-        res.json(note);
-        console.log("Successfully removed note!");
-      }
-    );
-  });
+  const updatedNotesList = deleteNote(req.params.id, notes);
+  res.json(updatedNotesList);
 });
 
 module.exports = router;
