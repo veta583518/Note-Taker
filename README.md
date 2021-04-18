@@ -43,4 +43,4 @@ Currently only simple jest testing and input validation
 ## Questions
 
 - GitHub: [veta583518](https://github.com/veta583518)
-- Email: [mailto](mailto:veta583518@gmail.com)
+- Email: [veta583518@gmail.com](mailto:veta583518@gmail.com)
